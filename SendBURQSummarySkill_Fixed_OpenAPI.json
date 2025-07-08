@@ -1,0 +1,62 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SendBURQSummarySkill",
+    "description": "Skill to send BURQ discovery summary via email using Power Automate.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/send-summary": {
+      "post": {
+        "summary": "Send summary via email",
+        "operationId": "SendEmailSummary",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "summary_text": {
+                    "type": "string"
+                  },
+                  "user_email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "summary_text",
+                  "user_email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Email successfully sent"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://prod-78.westeurope.logic.azure.com:443/workflows/0837a9a16ace470291399c22a76144a3/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wBpAbvcaYs_oRD8RURnb5-Y8Q-KYZFe7v1tIdjwraOk",
+      "description": "Base URL of the Power Automate HTTP flow"
+    }
+  ]
+}
