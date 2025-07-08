@@ -1,0 +1,91 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SendBURQSummarySkill",
+    "description": "Skill to send BURQ discovery summary via email using Power Automate.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://prod-78.westeurope.logic.azure.com:443/workflows/0837a9a16ace470291399c22a76144a3/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wBpAbvcaYs_oRD8RURnb5-Y8Q-KYZFe7v1tIdjwraOk",
+      "description": "Power Automate HTTP Flow"
+    }
+  ],
+  "paths": {
+    "/send-summary": {
+      "post": {
+        "operationId": "SendBurqSummary",
+        "summary": "Send the BURQ summary via email to a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSummaryRequest"
+              },
+              "examples": {
+                "example1": {
+                  "summary": "Sample Request",
+                  "value": {
+                    "summary_text": "Discovery session summary here...",
+                    "user_email": "user@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully sent summary via email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendSummaryResponse"
+                },
+                "examples": {
+                  "example1": {
+                    "summary": "Success Response",
+                    "value": {
+                      "status": "Email successfully sent"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SendSummaryRequest": {
+        "type": "object",
+        "properties": {
+          "summary_text": {
+            "type": "string",
+            "description": "The summary content to be emailed"
+          },
+          "user_email": {
+            "type": "string",
+            "description": "The email address of the recipient"
+          }
+        },
+        "required": [
+          "summary_text",
+          "user_email"
+        ]
+      },
+      "SendSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Confirmation message"
+          }
+        }
+      }
+    }
+  }
+}
